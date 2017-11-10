@@ -8,13 +8,13 @@ The data we will be using is from the NCBI Sequence Read Archive study number ER
 
 For this assignment, you will only need to work in one file, the `Rmd` file entitled `Analysis_Report_02_RNASeq.Rmd`. There is some starter code in that file, with comments on how the various functions work. You should modify this document as needed, and add code chunks and markdown text to complete the following set of tasks.
 
-Similarly to how last time, you used your results as a launching off point to do some additional research on the taxa you find, this time you'll be spending some time looking up the genes that catch your interest based on how their expression levels are affected (or not affected) by smoking and lung adenocarcinoma. You can use Google Scholar or some other tool to search the peer-reviewed literature. You are now responsible for finding and citing at least **five** additional peer-reviewed studies in your analysis report - these could get added throughout your Inteoduction, Methods, and Discussion sections.
+Similarly to how last time you used your results as a launching off point to do some additional research on the taxa you find, this time you'll be spending some time looking up the genes that catch your interest based on how their expression levels are affected (or not affected) by smoking and lung adenocarcinoma. You can use Google Scholar or some other tool to search the peer-reviewed literature. You are now responsible for finding and citing at least **five** additional peer-reviewed studies in your analysis report - these could get added throughout your Inteoduction, Methods, and Discussion sections.
 
 This report could focus in on, for example: what genes are most highly up-regulated in smokers, in late-stage cancer, within particular age groups, etc. It matters less to me what specific aspect of the data you focus on, and more important that you spend some time digging in to the data and developing and testing some hypotheses of your own about what is going on in this dataset.
 
 Please follow the instructions carefully and read them all before getting started.
 
-This second analysis report will be worth 50 points and will count for 12.5% of your final semester grade. So take this assignment seriously and start early!!
+This second analysis report will be worth 50 points and will count for 12.5% of your final semester grade. So take this assignment seriously and start early!
 
 The grading breakdown will be as follows:
 
