@@ -19,7 +19,7 @@ Although there has been an over 500% increase in lung cancer rates among women s
 
 ## Objective
 
-In this study, to emphasize that there are key distinctions between male and female gene expression profiles, genes that have been identified through somatic point mutations and contributing to malignency in NSCLC will be analyzed per the Li et al dataset and metadata [@Al-Saad2017; @li2015rna]. Specifically, the genes that will be analyzed are Epithelial growth factor receptor (EFGR1), Kirsten rat sarcoma virus (KRAS), mesenchymal-epithelial transition factor (MET) as well as insulin-like growth factor 1 receptor (IGFR1), all of which are potential therapeutic targets against advancing malignancy. It is also important to note that EFGR1, IGFR1 and MET (more commonly known as c-Met or HGFR) not only play critical roles in activating pathways such as RAS-MAPK pathway, but are also characterized as important in patient-developed treatment resistance [@Al-Saad2017]. Furthermore, Al-Saad et al. describes that high expression of MET and EFGR1 (either through high gene copy or abberant transcription amplification) are indicative biomarkers of a negative prognosis in NSCLC [@Al-Saad2017]. The expression of these genes will be divided by gender, age at diagnosis, and cancer stage to elucidate how women have gene expression differences that contribute to a better prognosis in NSCLC.
+In this study, to emphasize that there are key distinctions between male and female gene expression profiles, genes that have been identified through somatic point mutations and contributing to malignency in NSCLC will be analyzed per the Li et al dataset and metadata [@Al-Saad2017; @li2015rna]. Specifically, the genes that will be analyzed are Epithelial growth factor receptor (EFGR), Kirsten rat sarcoma virus (KRAS), mesenchymal-epithelial transition factor (MET) as well as insulin-like growth factor 1 receptor (IGFR1), all of which are potential therapeutic targets against advancing malignancy. It is also important to note that EFGR1, IGFR1 and MET (more commonly known as c-Met or HGFR) not only play critical roles in activating pathways such as RAS-MAPK pathway, but are also characterized as important in patient-developed treatment resistance [@Al-Saad2017]. Furthermore, Al-Saad et al. describes that high expression of MET and EFGR1 (either through high gene copy or abberant transcription amplification) are indicative biomarkers of a negative prognosis in NSCLC [@Al-Saad2017]. The expression of these genes will be divided by gender, age at diagnosis, and cancer stage to elucidate how women have gene expression differences that contribute to a better prognosis in NSCLC.
 
 
 # Methods
@@ -36,7 +36,7 @@ These are the methods that were used to process the sequencing data. Should prob
 
 # Results
 
-In addition to a minimum of 4-5 figures/tables (and associated captions), you should include sufficient text in this section to describe what your findings were. Remember that in the results section you just describe what you found, but you don't interpret it - that happens in the discussion.
+Data was subsetted from Li et al. to create all the figures in the Results section. Importantly to note is that each gene that was analyzed (EGFR, KRAS, MET and IGF1R) has exactly the same number of samples (76) that were divided into 31 females and 45 males across all genes. This indicates that the results are comparable because essentially the same sub-sample set was used for each figure created.
 
 ```{r load-libraries, message = FALSE, echo = FALSE}
 # Be sure to install these packages before running this script
@@ -99,9 +99,10 @@ top_15 %>%
              fill = gender)) +
     geom_col(position = "dodge")
 ```
+**Figure 1 Description**: Figure 1 shows the top 15 most highly expressed genes per gender.
 
 ```{r EFGR Expression at Different Canceer Stages}
-#
+# Seo et al. discusses that 79% of their patients' NSCLC is driven by point mutations in EFGR.
 EGFR <- final_table %>%
   filter(genename == "EGFR") %>%
   group_by(gender, age_at_diagnosis, cancer_stage) %>%
@@ -115,8 +116,9 @@ EGFR %>%
     geom_col(position = "dodge", aes(color = age_at_diagnosis))
 
 ```
+**Figure 2 Description**: Figure 2 shows EFGR expression according to gender through different cancer stages. EFGR expression is overall higher in males of any age at any cancer stage. The borders dividing the columns horizontally represent each gender at a specific cancer stage by age range, so it is evident that EFGR expression does not follow an age-trend in males as the high expression in stage 3A shows most of the males to be in their 80s while the high expression in stage 3B indicates that the population of males with high EFGR expression is closer to their 40s. Female expression of EFGR across all cancer stages is mostly inclusive to older women in their 70s and 80s.  
 
-```{r}
+```{r KRAS Expression at Different Canceer Stages}
 KRAS <- final_table %>%
   filter(genename == "KRAS") %>%
   group_by(gender, age_at_diagnosis, cancer_stage) %>%
@@ -130,8 +132,9 @@ KRAS %>%
     geom_col(position = "dodge", aes(color = age_at_diagnosis))
 
 ```
+**Figure 3 Description**: Figure 3 shows KRAS expression according to gender through different cancer stages. KRAS expression across cancer stages is much higher than EFGR for both sexes. In general, both sexes have a much higher expression of KRAS in stages 1A-2B than they do in stages 3A-4 (not including NA cancer stage). There is also more vairance in the age ranges as it appears that all the age ranges experience KRAS expression in stages 1A and 1B. Females; however, show less expression of KRAS overall.
 
-```{r}
+```{r MET Expression at Different Canceer Stages}
 MET <- final_table %>%
   filter(genename == "MET") %>%
 group_by(gender, age_at_diagnosis, cancer_stage) %>%
@@ -148,7 +151,7 @@ MET %>%
   
 ```
 
-```{r}
+```{r IGF1R Expression at Different Canceer Stages}
 IGF1R <- final_table %>%
   filter(genename == "IGF1R") %>%
   group_by(gender, 
@@ -167,22 +170,7 @@ IGF1R %>%
 
 
 
-```{r}
-HER2 <- final_table %>%
-  filter(genename == "HER2") %>%
-  group_by(gender, age_at_diagnosis, cancer_stage) %>%
-  summarize(mean_count = mean(counts_lengthscaledtpm)) %>%
-  arrange(desc(mean_count))
 
-HER2 %>%
-  ggplot(aes(x = cancer_stage,
-             y = mean_count,
-             fill = gender)) +
-    geom_col(position = "dodge", aes(color = gender))
-```
-
-
-**Figure 1**: Here we show an example figure caption.
 
 
 
