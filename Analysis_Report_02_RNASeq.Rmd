@@ -1,5 +1,5 @@
 ---
-title: "Analysis Report 2: Gender-based Prognostic Analysis of Gene Drivers in Patients with Lung adenocarcinoma"
+title: "Analysis Report 2: Gender-based Prognostic Analysis of Known Gene Drivers in Patients with Lung adenocarcinoma"
 author: "Alfredo Hans Locht"
 date: "November 10, 2017"
 output: github_document
@@ -15,7 +15,9 @@ csl: bioinformatics.csl
 
 Lung cancer has been identified worldwide as the most prevalent type of cancer with the highest mortality rates in developed countries [@Sakurai2010; @li2015rna; @seo2012transcriptional]. Tobacco cigarette smoking has been identified as the main contributer, along with a host of other genetic and environmental factors, to cause Lung adenocarcinoma, the most common type of non-small cell lung cancer (NSCLC). Genetic research in this field has mainly focused on finding the gene-expression differences between non-smokers and smokers with NSCLC and even between smokers who have and have not contracted any form of NSCLC [@Cheng2012; @li2015rna; @seo2012transcriptional]. These studies have found significant gene expression profile differences between smokers and nonsmokers with NSCLC; however, these studies have not addressed gender-based expression differences.
 
-Although there has been an over 500% increase in lung cancer rates among women since the 1980's, it is becoming increasingly evident that women contain gender-based genetic differences that predicate a favorable prognosis and higher survival rate than men when normalizing for other factors [@Chatkin2004; @Sakurai2010]. These gender-based differences have only been observed on clinicopathologic basis with not much emphasis on the genetic data that may be available for such an analysis. Given how carcinogens can actively mutate cells to become cancerous, there have been several somatic point mutations as well as aberrant fusion gene products identified specifically in NSCLC [@Al-Saad2017; @seo2012transcriptional]. These genes can serve as a basis for gender-based NSCLC analysis because the biology of these mutations is fairly well understood.
+Although there has been an over 500% increase in lung cancer rates among women since the 1980's, it is becoming increasingly evident that women contain gender-based genetic differences that predicate a favorable prognosis and higher survival rate than men when normalizing for other factors [@Chatkin2004; @Sakurai2010]. These gender-based differences have only been observed on clinicopathological basis with not much emphasis on the genetic data that may be available for such an analysis. Although common grounds have not been genetically established for a gender-based analysis of NSCLC, the disease has been able to be characterized genetically, by mutational analysis.
+
+Given how 60 of the known carcinogens in tobacco smoke can actively mutate cells to become cancerous, there have been several somatic point mutations as well as aberrant fusion gene products identified specifically in NSCLC [[@Al-Saad2017; @Cheng2012; @seo2012transcriptional; @Yokota2000]. These genes can serve as a basis for a potential gender-based NSCLC analysis because they are not gender-discriminate, and because the resulting biology from their mutations is relatively well understood.
 
 ## Objective
 
@@ -36,7 +38,7 @@ These are the methods that were used to process the sequencing data. Should prob
 
 # Results
 
-Data was subsetted from Li et al. to create all the figures in the Results section. Importantly to note is that each gene that was analyzed (EGFR, KRAS, MET and IGF1R) has exactly the same number of samples (76) that were divided into 31 females and 45 males across all genes. This indicates that the results are comparable because essentially the same sub-sample set was used for each figure created.
+Data was subsetted from Li et al. to create all the figures in the Results section. Importantly to note is that each gene that was analyzed (EGFR, KRAS, MET and IGF1R) has exactly the same number of samples (76) that were divided into 31 females and 45 males across all genes. This indicates that the results are comparable because essentially the same sub-sample set was used for each figure created. The data that was subsetted for the genes of interest however, failed to include any females in stage 2B, so there is no representation of females for that cancer stage for any gene of interest.
 
 ```{r load-libraries, message = FALSE, echo = FALSE}
 # Be sure to install these packages before running this script
@@ -150,6 +152,7 @@ MET %>%
              aes(color = age_at_diagnosis)) 
   
 ```
+**Figure 4 Description**: MET expression is shown in figure 4, and it can be seen that stage 1A for males and stage 1B for females resembles the KRAS expression in Figure 3 in terms of overall reads and age division reprentation. Overall, MET expression is higher in males in the later stages of cancer (except for 1A), but there is no trend in age factors. Conversely, MET expression is lower in females in later stages of cancer, but there is no age trend either. Female expression of MET is significantly lower overall whenc compared to male expression of MET across all cancer stages.
 
 ```{r IGF1R Expression at Different Canceer Stages}
 IGF1R <- final_table %>%
@@ -167,14 +170,7 @@ IGF1R %>%
              fill = gender)) +
     geom_col(position = "dodge", aes(color = age_at_diagnosis))
 ```
-
-
-
-
-
-
-
-**Figure 2**: Here we show another example figure caption.
+**Figure 5 Description**: Expression of IGF1R gives a much more detailed look at expression in females vs males than the rest of the genes because expression is much higher overall. Importantly, we see that male expression is much higher overall than any particular female expression at a specific stage. For males, the columns are more segmented across the stages which indicates that all age ranges are represented in male IGF1R expression. In comparison, females are predominantly more dominated by older age ranges.
 
 # Discussion
 
