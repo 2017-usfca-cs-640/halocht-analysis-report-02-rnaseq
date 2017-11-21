@@ -103,15 +103,17 @@ top_15 %>%
 ```
 **Figure 1 Description**: Figure 1 shows the top 15 most highly expressed genes per gender.
 
-```{r EFGR Expression at Different Canceer Stages}
-# Seo et al. discusses that 79% of their patients' NSCLC is driven by point mutations in EFGR.
-EGFR <- final_table %>%
+```{r efgr Expression at Different Canceer Stages}
+# Seo et al. discusses that 79% of
+#their patients' nsclc is driven
+# by point mutations in efgr.
+egfr <- final_table %>%
   filter(genename == "EGFR") %>%
   group_by(gender, age_at_diagnosis, cancer_stage) %>%
   summarize(mean_count = mean(counts_lengthscaledtpm)) %>%
   arrange(desc(mean_count))
 
-EGFR %>%
+egfr %>%
   ggplot(aes(x = cancer_stage,
              y = mean_count,
              fill = gender)) +
@@ -120,14 +122,14 @@ EGFR %>%
 ```
 **Figure 2 Description**: Figure 2 shows EFGR expression according to gender through different cancer stages. EFGR expression is overall higher in males of any age at any cancer stage. The borders dividing the columns horizontally represent each gender at a specific cancer stage by age range, so it is evident that EFGR expression does not follow an age-trend in males as the high expression in stage 3A shows most of the males to be in their 80s while the high expression in stage 3B indicates that the population of males with high EFGR expression is closer to their 40s. Female expression of EFGR across all cancer stages is mostly inclusive to older women in their 70s and 80s.  
 
-```{r KRAS Expression at Different Canceer Stages}
-KRAS <- final_table %>%
+```{r kras Expression at Different Canceer Stages}
+kras <- final_table %>%
   filter(genename == "KRAS") %>%
   group_by(gender, age_at_diagnosis, cancer_stage) %>%
   summarize(mean_count = mean(counts_lengthscaledtpm)) %>%
   arrange(desc(mean_count))
 
-KRAS %>%
+kras %>%
   ggplot(aes(x = cancer_stage,
              y = mean_count,
              fill = gender)) +
@@ -137,43 +139,45 @@ KRAS %>%
 **Figure 3 Description**: Figure 3 shows KRAS expression according to gender through different cancer stages. KRAS expression across cancer stages is much higher than EFGR for both sexes. In general, both sexes have a much higher expression of KRAS in stages 1A-2B than they do in stages 3A-4 (not including NA cancer stage). There is also more vairance in the age ranges as it appears that all the age ranges experience KRAS expression in stages 1A and 1B. Females; however, show less expression of KRAS overall.
 
 ```{r MET Expression at Different Canceer Stages}
-MET <- final_table %>%
+met <- final_table %>%
   filter(genename == "MET") %>%
 group_by(gender, age_at_diagnosis, cancer_stage) %>%
-  summarize(mean_count = 
+  summarize(mean_count =
               mean(counts_lengthscaledtpm)) %>%
-  arrange(desc(mean_count)) 
+  arrange(desc(mean_count))
 
-MET %>%
+met %>%
   ggplot(aes(x = cancer_stage,
              y = mean_count,
              fill = gender)) +
-    geom_col(position = "dodge",
-             aes(color = age_at_diagnosis)) 
+  geom_col(position = "dodge",
+           aes(color = age_at_diagnosis))
   
 ```
 **Figure 4 Description**: MET expression is shown in figure 4, and it can be seen that stage 1A for males and stage 1B for females resembles the KRAS expression in Figure 3 in terms of overall reads and age division reprentation. Overall, MET expression is higher in males in the later stages of cancer (except for 1A), but there is no trend in age factors. Conversely, MET expression is lower in females in later stages of cancer, but there is no age trend either. Female expression of MET is significantly lower overall whenc compared to male expression of MET across all cancer stages.
 
-```{r IGF1R Expression at Different Canceer Stages}
-IGF1R <- final_table %>%
+```{r igf1r Expression at Different Canceer Stages}
+igf1r <- final_table %>%
   filter(genename == "IGF1R") %>%
-  group_by(gender, 
-           age_at_diagnosis, 
+  group_by(gender,
+           age_at_diagnosis,
            cancer_stage) %>%
-  summarize(mean_count = 
+  summarize(mean_count =
               mean(counts_lengthscaledtpm)) %>%
   arrange(desc(mean_count))
 
-IGF1R %>%
+igf1r %>%
   ggplot(aes(x = cancer_stage,
              y = mean_count,
              fill = gender)) +
-    geom_col(position = "dodge", aes(color = age_at_diagnosis))
+  geom_col(position = "dodge",
+           aes(color = age_at_diagnosis))
 ```
-**Figure 5 Description**: Expression of IGF1R gives a much more detailed look at expression in females vs males than the rest of the genes because expression is much higher overall. Importantly, we see that male expression is much higher overall than any particular female expression at a specific stage. For males, the columns are more segmented across the stages which indicates that all age ranges are represented in male IGF1R expression. In comparison, females are predominantly more dominated by older age ranges.
+**Figure 5 Description**: Expression of IGF1R gives a much more detailed look at expression in females vs males than the rest of the genes because expression is much higher overall. Importantly, we see that male expression of IGF1R is much higher than any particular female expression at a specific stage. For males, the columns are more segmented across the stages which indicates that all age ranges are represented in male IGF1R expression. In comparison, females are predominantly more dominated by older age ranges in almost every cancer stage.
 
 # Discussion
 
+Gender-based differences in gene expression profiles per cancer stage are clearly visible in the genes which have been characterized by both [@seo2012transcriptional] and [@Al-Saad2017] as having a high impact on the prognosis of lung adenocarcinoma. 
 Limitations: We have the patient data, but do not know if they have had any kind of previous operation to extract or get rid of the cancer in the metadata or what kind of treatment (if any) they have undergone. --> nevermind, all of these samples were taken from lobectomies which means the cancers were removed already.
 
 so from the metadata we actually do not have information about rate or amount of smoking, so it is hard to judge that.
