@@ -127,7 +127,7 @@ egfr %>%
 
 ```{r kras Expression at Different Cancer Stages}
 # kras expression at different cancer stages
-# Kras is activated through the RAS-MAPK 
+# Kras is activated through the RAS-MAPK
 # signaling pathway responsible for
 # cell proliferation.
 kras <- final_table %>%
