@@ -15,7 +15,7 @@ Lung cancer has been identified worldwide as the most prevalent type of cancer w
 
 Although there has been an over 500% increase in lung cancer rates among women since the 1980's, it is becoming increasingly evident that women contain gender-based genetic differences that predicate a favorable prognosis and higher survival rate than men when normalizing for other factors (Is there a gender difference in non-small cell lung cancer survival?, 2004; Sakurai *et al.*, 2010). These gender-based differences have only been observed on clinicopathological basis with not much emphasis on the genetic data that may be available for such an analysis. Although common grounds have not been genetically established for a gender-based analysis of NSCLC, the disease has been able to be characterized genetically, by mutational analysis.
 
-Given how 60 of the known carcinogens in tobacco smoke can actively mutate cells to become cancerous, there have been several somatic point mutations as well as aberrant fusion gene products identified specifically in NSCLC \[(Al-Saad *et al.*, 2017; Cheng *et al.*, 2012; Seo *et al.*, 2012; Yokota, 2000). These genes can serve as a basis for a potential gender-based NSCLC analysis because they are not gender-discriminate, and because the resulting biology from their mutations is relatively well understood.
+Given how 60 of the known carcinogens in tobacco smoke can actively mutate cells to become cancerous, there have been several somatic point mutations as well as aberrant fusion gene products identified specifically in NSCLC (Al-Saad *et al.*, 2017; Cheng *et al.*, 2012; Seo *et al.*, 2012; Collisson *et al.*, 2014). These genes can serve as a basis for a potential gender-based NSCLC analysis because they are not gender-discriminate, and because the resulting biology from their mutations is relatively well understood.
 
 Objective
 ---------
@@ -62,84 +62,118 @@ Data was subsetted from Li et al. to create all the figures in the Results secti
 
 **Table 1**: The most highly expressed genes in both genders included *SFTPB* and *EEF1A1*.
 
-![](Analysis_Report_02_RNASeq_files/figure-markdown_github-ascii_identifiers/make-barplot-of-highly-expressed-genes-1.png) **Figure 1 Description**: Figure 1 shows the top 15 most highly expressed genes per gender.
+![](Analysis_Report_02_RNASeq_files/figure-markdown_github-ascii_identifiers/make-barplot-of-highly-expressed-genes-1.png)
+
+**Figure 1 Description**: Figure 1 shows the top 15 most highly expressed genes per gender.
 
 ``` r
-# Seo et al. discusses that 79% of their patients' NSCLC is driven by point mutations in EFGR.
-EGFR <- final_table %>%
+# efgr expression at different cancer stages
+# Seo et al. discusses that 79% of
+# their patients' nsclc is driven
+# by point mutations in efgr.
+egfr <- final_table %>%
   filter(genename == "EGFR") %>%
   group_by(gender, age_at_diagnosis, cancer_stage) %>%
   summarize(mean_count = mean(counts_lengthscaledtpm)) %>%
   arrange(desc(mean_count))
 
-EGFR %>%
+egfr %>%
   ggplot(aes(x = cancer_stage,
              y = mean_count,
              fill = gender)) +
     geom_col(position = "dodge", aes(color = age_at_diagnosis))
 ```
 
-![](Analysis_Report_02_RNASeq_files/figure-markdown_github-ascii_identifiers/EFGR%20Expression%20at%20Different%20Canceer%20Stages-1.png) **Figure 2 Description**: Figure 2 shows EFGR expression according to gender through different cancer stages. EFGR expression is overall higher in males of any age at any cancer stage. The borders dividing the columns horizontally represent each gender at a specific cancer stage by age range, so it is evident that EFGR expression does not follow an age-trend in males as the high expression in stage 3A shows most of the males to be in their 80s while the high expression in stage 3B indicates that the population of males with high EFGR expression is closer to their 40s. Female expression of EFGR across all cancer stages is mostly inclusive to older women in their 70s and 80s.
+![](Analysis_Report_02_RNASeq_files/figure-markdown_github-ascii_identifiers/efgr%20Expression%20at%20Different%20Canceer%20Stages-1.png)
+
+**Figure 2 Description**: Figure 2 shows EFGR expression according to gender through different cancer stages. EFGR expression is overall higher in males of any age at any cancer stage. The borders dividing the columns horizontally represent each gender at a specific cancer stage by age range, so it is evident that EFGR expression does not follow an age-trend in males as the high expression in stage 3A shows most of the males to be in their 80s while the high expression in stage 3B indicates that the population of males with high EFGR expression is closer to their 40s. Female expression of EFGR across all cancer stages is mostly inclusive to older women in their 70s and 80s.
 
 ``` r
-KRAS <- final_table %>%
+# kras expression at different cancer stages
+# Kras is activated through the RAS-MAPK 
+# signaling pathway responsible for
+# cell proliferation.
+kras <- final_table %>%
   filter(genename == "KRAS") %>%
   group_by(gender, age_at_diagnosis, cancer_stage) %>%
   summarize(mean_count = mean(counts_lengthscaledtpm)) %>%
   arrange(desc(mean_count))
 
-KRAS %>%
+kras %>%
   ggplot(aes(x = cancer_stage,
              y = mean_count,
              fill = gender)) +
     geom_col(position = "dodge", aes(color = age_at_diagnosis))
 ```
 
-![](Analysis_Report_02_RNASeq_files/figure-markdown_github-ascii_identifiers/KRAS%20Expression%20at%20Different%20Canceer%20Stages-1.png) **Figure 3 Description**: Figure 3 shows KRAS expression according to gender through different cancer stages. KRAS expression across cancer stages is much higher than EFGR for both sexes. In general, both sexes have a much higher expression of KRAS in stages 1A-2B than they do in stages 3A-4 (not including NA cancer stage). There is also more vairance in the age ranges as it appears that all the age ranges experience KRAS expression in stages 1A and 1B. Females; however, show less expression of KRAS overall.
+![](Analysis_Report_02_RNASeq_files/figure-markdown_github-ascii_identifiers/kras%20Expression%20at%20Different%20Cancer%20Stages-1.png)
+
+**Figure 3 Description**: Figure 3 shows KRAS expression according to gender through different cancer stages. KRAS expression across cancer stages is much higher than EFGR for both sexes. In general, both sexes have a much higher expression of KRAS in stages 1A-2B than they do in stages 3A-4 (not including NA cancer stage). There is also more vairance in the age ranges as it appears that all the age ranges experience KRAS expression in stages 1A and 1B. Females; however, show less expression of KRAS overall.
 
 ``` r
-MET <- final_table %>%
+# met expression at different cancer stages:
+# met is implicated by [@Al-Saad2017]
+# to be responsible for oncogenic potential
+# when overexpressed.
+met <- final_table %>%
   filter(genename == "MET") %>%
 group_by(gender, age_at_diagnosis, cancer_stage) %>%
-  summarize(mean_count = 
-              mean(counts_lengthscaledtpm)) %>%
-  arrange(desc(mean_count)) 
-
-MET %>%
-  ggplot(aes(x = cancer_stage,
-             y = mean_count,
-             fill = gender)) +
-    geom_col(position = "dodge",
-             aes(color = age_at_diagnosis)) 
-```
-
-![](Analysis_Report_02_RNASeq_files/figure-markdown_github-ascii_identifiers/MET%20Expression%20at%20Different%20Canceer%20Stages-1.png) **Figure 4 Description**: MET expression is shown in figure 4, and it can be seen that stage 1A for males and stage 1B for females resembles the KRAS expression in Figure 3 in terms of overall reads and age division reprentation. Overall, MET expression is higher in males in the later stages of cancer (except for 1A), but there is no trend in age factors. Conversely, MET expression is lower in females in later stages of cancer, but there is no age trend either. Female expression of MET is significantly lower overall whenc compared to male expression of MET across all cancer stages.
-
-``` r
-IGF1R <- final_table %>%
-  filter(genename == "IGF1R") %>%
-  group_by(gender, 
-           age_at_diagnosis, 
-           cancer_stage) %>%
-  summarize(mean_count = 
+  summarize(mean_count =
               mean(counts_lengthscaledtpm)) %>%
   arrange(desc(mean_count))
 
-IGF1R %>%
+met %>%
   ggplot(aes(x = cancer_stage,
              y = mean_count,
              fill = gender)) +
-    geom_col(position = "dodge", aes(color = age_at_diagnosis))
+  geom_col(position = "dodge",
+           aes(color = age_at_diagnosis))
 ```
 
-![](Analysis_Report_02_RNASeq_files/figure-markdown_github-ascii_identifiers/IGF1R%20Expression%20at%20Different%20Canceer%20Stages-1.png) **Figure 5 Description**: Expression of IGF1R gives a much more detailed look at expression in females vs males than the rest of the genes because expression is much higher overall. Importantly, we see that male expression is much higher overall than any particular female expression at a specific stage. For males, the columns are more segmented across the stages which indicates that all age ranges are represented in male IGF1R expression. In comparison, females are predominantly more dominated by older age ranges.
+![](Analysis_Report_02_RNASeq_files/figure-markdown_github-ascii_identifiers/met%20Expression%20at%20Different%20Cancer%20Stages-1.png)
+
+**Figure 4 Description**: MET expression is shown in figure 4, and it can be seen that stage 1A for males and stage 1B for females resembles the KRAS expression in Figure 3 in terms of proportionality to other cancer stages and age division reprentation. Overall, MET expression is very high in both sexes by a power of ten than the Kras expressions. It is also higher in males in the later stages of cancer (except for 1A), but there is no trend in age factors. Conversely, MET expression is lower in females in later stages of cancer, but there is no age trend either. Female expression of MET is significantly lower overall whenc compared to male expression of MET across all cancer stages.
+
+``` r
+# ig1fr expression at differen cancer stages:
+# [@Al-Saad2017] has found that it igf1r is
+# a negative prognostic indicator
+# specifically for males.
+igf1r <- final_table %>%
+  filter(genename == "IGF1R") %>%
+  group_by(gender,
+           age_at_diagnosis,
+           cancer_stage) %>%
+  summarize(mean_count =
+              mean(counts_lengthscaledtpm)) %>%
+  arrange(desc(mean_count))
+
+igf1r %>%
+  ggplot(aes(x = cancer_stage,
+             y = mean_count,
+             fill = gender)) +
+  geom_col(position = "dodge",
+           aes(color = age_at_diagnosis))
+```
+
+![](Analysis_Report_02_RNASeq_files/figure-markdown_github-ascii_identifiers/igf1r%20Expression%20at%20Different%20Cancer%20Stages-1.png)
+
+**Figure 5 Description**: Expression of IGF1R gives a much more detailed look at expression in females vs males than the rest of the genes because expression is much higher overall. Importantly, we see that male expression of IGF1R is much higher than any particular female expression at a specific stage. For males, the columns are more segmented across the stages which indicates that all age ranges are represented in male IGF1R expression. In comparison, females are predominantly more dominated by older age ranges in almost every cancer stage.
 
 Discussion
 ==========
 
-Limitations: We have the patient data, but do not know if they have had any kind of previous operation to extract or get rid of the cancer in the metadata or what kind of treatment (if any) they have undergone. --&gt; nevermind, all of these samples were taken from lobectomies which means the cancers were removed already.
+Gender-based differences in gene expression profiles per cancer stage are clearly visible in the genes which have been characterized by both (Seo *et al.*, 2012) and (Al-Saad *et al.*, 2017) as having a high impact on the prognosis of lung adenocarcinoma. Seo et al. specifically mentions that point mutations in EGFR and KRAS are considered gene drivers which, when expressed in cancer cells, consequently experience higher levels of expression than in normal cells.
 
-so from the metadata we actually do not have information about rate or amount of smoking, so it is hard to judge that. Add around 1-2 pages interpreting your results and considering future directions one might take in analyzing these data.
+Although the possible mutational effects of this transcriptome data cannot be directly inferred, the raw expression reads for EFGR and KRAS in figures 2 and 3 respectively do not show increased levels of EGFR and KRAS expression in comparison to the other genes of interest. It is interesting however, that the levels of expression in EFGR do not directly correlate to expression levels of KRAS. According to (Al-Saad *et al.*, 2017), EFGR can be directly responsible for activating the RAS-MAPK signaling pathway when activated, so it was expected that expression levels of EFGR would be similar to KRAS since these two entities are thought to directly interact with each other in normal cells.
+
+Instead, there is a more similar pattern of expression between KRAS and MET genes. MET has incredibly high gene expression as shown in figure 4 where the total number of reads for males in stage 1A being greater than 50,0000. Similarly KRAS expression in males for stage 1A cancer reaches almost 6000 reads. It has been related by (Al-Saad *et al.*, 2017) that activation of MET, which can actually result from anti-EFGR treatment, can cause downstream activation of RAS-MAPK as well, which leads to treatment resistance in some patients. Although we lack any metadata indicating what kind of treatment these patients were receiving if any, it seems that MET overexpression has directly influenced KRAS expression in males in stages 1A, 2B, and 3A and also in females in stages 1B, 3A and 3B. KRAS, being a well-characterized biomarker of cancer, however, is still significantly more expressed in males than in females at most stages of cancer.
+
+Finally, IGFR expression seems to be relatively more well distributed across cancer stages than any of the other genes. However, we can see that it is also more greatly expressed in males than in females. Overt IFGR expression was directly correlated to a negative prognostic indicator in males, but not in females (Al-Saad *et al.*, 2017). Hormone effects on various genes are primarily thought to be responsible for these differences, so there is increasing research in anti-IFGR treatment with biologics. There are already promising preclinical trials of anti-IFGR treatment in breast cancer patients; however, this data would suggest that males would benefit to a greater extent.
+
+In compiling the figures, the omission of females in stage 2B because of lack of transcripts in the genes of interest could lead to a potential bias. Furthermore, the data is skewed towards males because there were more males in the subsetted data sets than females (45 vs. 31).
+
+For future studies, the need for more detailed metadata including length and intensity of smoking habits as well as any previously indicated treatments that have been applied to the tissue would be useful for discerning further trends in expression, especially in the gene drivers responsible for NSCLC.
 
 Sources Cited
 =============
@@ -148,6 +182,8 @@ Al-Saad,S. *et al.* (2017) The impact of MET, IGF-1, IGF1R expression and EGFR m
 
 Cheng,P. *et al.* (2012) Comparison of the gene expression profiles between smokers with and without lung cancer using RNA-Seq. *Asian Pacific journal of cancer prevention : APJCP*, **13**, 3605–9.
 
+Collisson,E. *et al.* (2014) Comprehensive molecular profiling of lung adenocarcinoma. *Nature*, **511**, 543–550.
+
 Is there a gender difference in non-small cell lung cancer survival? (2004) *Gender Medicine*, **1**, 41–47.
 
 Li,Y. *et al.* (2015) RNA-seq analysis of lung adenocarcinomas reveals different gene expression profiles between smoking and nonsmoking patients. *Tumor Biology*, **36**, 8993–9003.
@@ -155,5 +191,3 @@ Li,Y. *et al.* (2015) RNA-seq analysis of lung adenocarcinomas reveals different
 Sakurai,H. *et al.* (2010) Survival Differences by Gender for Resected Non-small Cell Lung Cancer: A Retrospective Analysis of 12,509 Cases in a Japanese Lung Cancer Registry Study. *Journal of Thoracic Oncology*, **5**, 1594–1601.
 
 Seo,J.-S. *et al.* (2012) The transcriptional landscape and mutational profile of lung adenocarcinoma. *Genome research*, **22**, 2109–2119.
-
-Yokota,J. (2000) Tumor progression and metastasis. *Carcinogenesis*, **21**, 497–503.
