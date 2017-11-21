@@ -17,7 +17,7 @@ Lung cancer has been identified worldwide as the most prevalent type of cancer w
 
 Although there has been an over 500% increase in lung cancer rates among women since the 1980's, it is becoming increasingly evident that women contain gender-based genetic differences that predicate a favorable prognosis and higher survival rate than men when normalizing for other factors [@Chatkin2004; @Sakurai2010]. These gender-based differences have only been observed on clinicopathological basis with not much emphasis on the genetic data that may be available for such an analysis. Although common grounds have not been genetically established for a gender-based analysis of NSCLC, the disease has been able to be characterized genetically, by mutational analysis.
 
-Given how 60 of the known carcinogens in tobacco smoke can actively mutate cells to become cancerous, there have been several somatic point mutations as well as aberrant fusion gene products identified specifically in NSCLC [[@Al-Saad2017; @Cheng2012; @seo2012transcriptional; @Yokota2000]. These genes can serve as a basis for a potential gender-based NSCLC analysis because they are not gender-discriminate, and because the resulting biology from their mutations is relatively well understood.
+Given how 60 of the known carcinogens in tobacco smoke can actively mutate cells to become cancerous, there have been several somatic point mutations as well as aberrant fusion gene products identified specifically in NSCLC [@Al-Saad2017; @Cheng2012; @seo2012transcriptional; @Collisson2014]. These genes can serve as a basis for a potential gender-based NSCLC analysis because they are not gender-discriminate, and because the resulting biology from their mutations is relatively well understood.
 
 ## Objective
 
